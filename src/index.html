@@ -32,7 +32,7 @@
 
         try {
             // Update the endpoint URL with your Azure Function's URL
-            const response = await fetch(`https://vnny-func-app2.azurewebsites.net/api/HttpTrigger1?resourceGroupName=${resourceGroupName}`);
+            const response = await fetch(`https://vnny-func-app-3.azurewebsites.net/api/HttpTrigger1?`);
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
