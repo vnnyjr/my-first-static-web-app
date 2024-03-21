@@ -25,12 +25,12 @@
     <div id="result"></div>
 
     <script>
-    document.getElementById('myButton').addEventListener('click', function() {
-        // Example task: Add two numbers
-        const result = 5 + 3; // Simulate a task here
-        
-        // Display the result
-        document.getElementById('result').innerText = `Result: ${result}`;
+    document.getElementById('myButton').addEventListener('click', async () => {
+        const resourceGroupName = 'your-resource-group-name'; // You can make this dynamic if needed
+        const response = await fetch(`/api/HttpTrigger1?resourceGroupName=${resourceGroupName}`);
+        const data = await response.json();
+
+        document.getElementById('result').textContent = JSON.stringify(data, null, 2);
     });
     </script>
     
