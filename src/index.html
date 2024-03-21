@@ -25,13 +25,29 @@
     <div id="result"></div>
 
     <script>
-    document.getElementById('myButton').addEventListener('click', async () => {
-        const resourceGroupName = 'automation'; // You can make this dynamic if needed
-        const response = await fetch(`/api/HttpTrigger1?resourceGroupName=${resourceGroupName}`);
-        const data = await response.json();
 
-        document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+    document.getElementById('myButton').addEventListener('click', async () => {
+        const resourceGroupName = 'automation';
+        const outputElement = document.getElementById('result');
+
+        try {
+            // Update the endpoint URL with your Azure Function's URL
+            const response = await fetch(`/api/HttpTrigger1?resourceGroupName=${resourceGroupName}`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            
+            // Here, we're just converting the JSON object to a string for display purposes
+            outputElement.textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+            console.error('Fetch error:', error);
+            outputElement.textContent = 'Error: Could not retrieve data. Check the console for more information.';
+        }
     });
+
     </script>
     
 
