@@ -38,15 +38,14 @@
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const data = await response.json();
+            const data = await response.text();
             
-            // Here, we're just converting the JSON object to a string for display purposes
-            outputElement.textContent = JSON.stringify(data, null, 2);
-        } catch (error) {
-            console.error('Fetch error:', error);
-            outputElement.textContent = 'Error: Could not retrieve data. Check the console for more information.';
-        }
-    });
+            outputElement.textContent = data; // Changed from JSON.stringify(data, null, 2)
+    } catch (error) {
+        console.error('Fetch error:', error);
+        outputElement.textContent = 'Error: Could not retrieve data. Check the console for more information.';
+    }
+});
 
     </script>
     
