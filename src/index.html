@@ -39,7 +39,7 @@
             }
 
             const data = await response.text();
-            const resources = data.split(' '); // Adjust the separator if necessary
+            const resources = data.split('\n'); // Adjust the separator if necessary
             outputElement.innerHTML = resources.join('<br>'); // Use innerHTML to parse the <br> tags
 
     } catch (error) {
