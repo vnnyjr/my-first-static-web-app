@@ -39,8 +39,9 @@
             }
 
             const data = await response.text();
-            
-            outputElement.textContent = data; // Changed from JSON.stringify(data, null, 2)
+            const resources = data.split(' '); // Adjust the separator if necessary
+            outputElement.innerHTML = resources.join('<br>'); // Use innerHTML to parse the <br> tags
+
     } catch (error) {
         console.error('Fetch error:', error);
         outputElement.textContent = 'Error: Could not retrieve data. Check the console for more information.';
