@@ -12,34 +12,38 @@
     <main>
     <h1>Vanilla JavaScript App</h1>
         
-    <button id="myButton">Click Me</button>
+    <input type="text" id="resourceGroupNameInput" placeholder="Enter resource group name">
+    <button id="fetchButton">Fetch Resources</button>
     <div id="result"></div>
+   
 
     </main>
 
     <script>
-    document.getElementById('myButton').addEventListener('click', async () => {
-        const resourceGroupName = 'automation';
+    document.getElementById('fetchButton').addEventListener('click', async () => {
+        const resourceGroupName = document.getElementById('resourceGroupNameInput').value;
         const outputElement = document.getElementById('result');
 
+        if (!resourceGroupName) {
+            outputElement.textContent = 'Please enter a resource group name.';
+            return;
+        }
+
         try {
-            // Update the endpoint URL with your Azure Function's URL
-            const response = await fetch(`https://func-app-powershell001.azurewebsites.net/api/HttpTrigger1?resourcegroupname=${resourceGroupName}`);
+            const response = await fetch(`https://func-app-powershell001.azurewebsites.net/api/HttpTrigger1?resourcegroupname=${encodeURIComponent(resourceGroupName)}`);
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
             const data = await response.text();
-            const resources = data.split('\n'); // Adjust the separator if necessary
-            outputElement.innerHTML = resources.join('<br>'); // Use innerHTML to parse the <br> tags
-
-    } catch (error) {
-        console.error('Fetch error:', error);
-        outputElement.textContent = 'Error: Could not retrieve data. Check the console for more information.';
-    }
-});
-
+            const resources = data.split('\n');
+            outputElement.innerHTML = resources.join('<br>');
+        } catch (error) {
+            console.error('Fetch error:', error);
+            outputElement.textContent = 'Error: Could not retrieve data. Check the console for more information.';
+        }
+    });
     </script>
     
 
