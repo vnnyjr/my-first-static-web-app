@@ -36,7 +36,10 @@
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const jsondata = await response.text();
+            const data = await response.text();
+            // Parse the JSON string to get the array of HTML strings
+            const jsonData = JSON.parse(data);
+
 
             // Start building the HTML table
             let html = '<table>';
@@ -58,7 +61,7 @@
 
             // Set the innerHTML of the outputElement to the html string
             outputElement.innerHTML = html;
-            
+
         } catch (error) {
             console.error('Fetch error:', error);
             outputElement.textContent = 'Error: Could not retrieve data. Check the console for more information.';
