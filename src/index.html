@@ -12,8 +12,8 @@
     <main>
     <h1>Vanilla JavaScript App</h1>
         
-    <input type="text" id="resourceGroupNameInput" placeholder="Enter resource group name">
-    <button id="fetchButton">Fetch Resources</button>
+    <input type="text" id="SearchTermInput" placeholder="Enter search term">
+    <button id="fetchButton">Fetch</button>
     <div id="result"></div>
    
 
@@ -21,16 +21,16 @@
 
     <script>
     document.getElementById('fetchButton').addEventListener('click', async () => {
-        const resourceGroupName = document.getElementById('resourceGroupNameInput').value;
+        const SearchTerm = document.getElementById('SearchTermInput').value;
         const outputElement = document.getElementById('result');
 
-        if (!resourceGroupName) {
-            outputElement.textContent = 'Please enter a resource group name.';
+        if (!SearchTerm) {
+            outputElement.textContent = 'Please enter a search term.';
             return;
         }
 
         try {
-            const response = await fetch(`https://func-app-powershell001.azurewebsites.net/api/HttpTrigger1?resourcegroupname=${encodeURIComponent(resourceGroupName)}`);
+            const response = await fetch(`https://func-app-powershell001.azurewebsites.net/api/HttpTrigger3?SearchTerm=${encodeURIComponent(SearchTerm)}`);
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
