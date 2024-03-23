@@ -37,9 +37,17 @@
             }
 
             const data = await response.text();
-            const resources = data.split('\n');
-            // Directly set innerHTML if the response is already an HTML table
-            outputElement.innerHTML = data;
+
+            // Assuming the response is a JSON string containing an array with HTML table markup
+            // Parse the JSON and join the array elements if necessary
+            const parsedData = JSON.parse(data);
+            if (Array.isArray(parsedData)) {
+                outputElement.innerHTML = parsedData.join(''); // Join array elements without any separator
+            } else {
+                // Handle other types of responses if necessary
+                outputElement.textContent = 'Received data is not in the expected format.';
+            }
+
         } catch (error) {
             console.error('Fetch error:', error);
             outputElement.textContent = 'Error: Could not retrieve data. Check the console for more information.';
