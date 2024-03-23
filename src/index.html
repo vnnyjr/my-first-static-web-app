@@ -38,7 +38,8 @@
 
             const data = await response.text();
             const resources = data.split('\n');
-            outputElement.innerHTML = resources.join('<br>');
+            // Directly set innerHTML if the response is already an HTML table
+            outputElement.innerHTML = data;
         } catch (error) {
             console.error('Fetch error:', error);
             outputElement.textContent = 'Error: Could not retrieve data. Check the console for more information.';
