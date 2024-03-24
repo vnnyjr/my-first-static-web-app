@@ -51,26 +51,26 @@
             const jsonData = JSON.parse(data);
 
 
-            // Start building the HTML table
-            let html = '<table>';
-            html += '<tr><th>Title</th><th>Channel</th><th>Published</th><th>Duration</th><th>Url</th></tr>';
-            
-            // Loop over each item in the JSON array and add table rows
-            jsonData.forEach(item => {
-                html += `<tr>
-                            <td>${item.title}</td>
-                            <td>${item.Channel}</td>
-                            <td>${new Date(item.Published).toLocaleString()}</td>
-                            <td>${item.Duration}</td>
-                            <td><a href="${item.Url}" target="_blank">${item.Url}</a></td>
-                        </tr>`;
-            });
+        // Start building the HTML table with the correct structure
+        let html = '<table id="myTable" class="display">';
+        html += '<thead><tr><th>Title</th><th>Channel</th><th>Published</th><th>Duration</th><th>Url</th></tr></thead><tbody>';
 
-            // Close the table HTML
-            html += '</table>';
+        // Loop over each item in the JSON array and add table rows
+        jsonData.forEach(item => {
+            html += `<tr>
+                        <td>${item.title}</td>
+                        <td>${item.Channel}</td>
+                        <td>${new Date(item.Published).toLocaleString()}</td>
+                        <td>${item.Duration}</td>
+                        <td><a href="${item.Url}" target="_blank">${item.Url}</a></td>
+                    </tr>`;
+        });
 
-            // Set the innerHTML of the outputElement to the html string
-            outputElement.innerHTML = html;
+        // Close the tbody and table HTML
+        html += '</tbody></table>';
+
+        // Set the innerHTML of the outputElement to the html string
+        outputElement.innerHTML = html;
 
         } catch (error) {
             console.error('Fetch error:', error);
